@@ -1,16 +1,16 @@
-# This is a sample Python script.
+import os
+from flask import Flask, jsonify
+from flask_cors import CORS, cross_origin
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+import twitter
+
+app = Flask(__name__, instance_relative_config=True)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
+app.config.from_mapping(SECRET_KEY=os.urandom(24))
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+@app.route('/trends/:<string:country>')
+@cross_origin()
+def gather_trends(country):
+    twitter_trends = twitter.get_trends(country)
