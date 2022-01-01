@@ -11,9 +11,14 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 app.config.from_mapping(SECRET_KEY=os.urandom(24))
 
 
-@app.route('/trends/:<string:country>')
+@app.route('/trends/<string:country>', methods=["GET"])
 @cross_origin()
 def gather_trends(country):
     twitter_trends = twitter.get_trends(country)
     google_trends = trends.get_trends(country)
-    return jsonify(twitter_trends + google_trends)
+    json_data = jsonify(twitter_trends + google_trends)
+    return json_data
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
