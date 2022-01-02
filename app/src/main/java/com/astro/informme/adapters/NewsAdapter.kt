@@ -1,6 +1,7 @@
 package com.astro.informme.adapters
 
 import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.astro.informme.R
 import com.astro.informme.api.News
 
-class NewsAdapter(val news: ArrayList<News>) : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
+class NewsAdapter(var news: MutableList<News>) : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
     class NewsViewHolder(private val view : View): RecyclerView.ViewHolder(view) {
         val newsImage : ImageView = view.findViewById(R.id.news_img)
@@ -47,8 +48,8 @@ class NewsAdapter(val news: ArrayList<News>) : RecyclerView.Adapter<NewsAdapter.
         return news.size
     }
 
-    fun add(newNews : List<News>) {
-        this.news.addAll(newNews)
+    fun add(newNews : MutableList<News>) {
+        this.news = newNews
     }
 
 }
