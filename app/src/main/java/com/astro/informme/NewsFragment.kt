@@ -14,7 +14,7 @@ import com.astro.informme.api.Trends
 
 class NewsFragment : Fragment() {
 
-    private val newsPieces : ArrayList<News> = ArrayList(100)
+    private val newsPieces : MutableList<News> = ArrayList(100)
     private val newsAdapter = NewsAdapter(newsPieces)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,17 +28,15 @@ class NewsFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_news, container, false)
 
-        Trends().getTrends(view.context, "canada")
+        Trends().getTrends(view.context, "canada", this)
         val newsView = view.findViewById<RecyclerView>(R.id.news)
 
-        val recAdapter = NewsAdapter(newsPieces)
-        newsView.adapter = recAdapter
+        newsView.adapter = newsAdapter
         newsView.layoutManager = LinearLayoutManager(this.context)
 
         return view
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     fun updateList(news : News) {
         newsPieces.add(news)
         newsAdapter.add(newsPieces)
