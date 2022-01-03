@@ -1,11 +1,14 @@
 package com.astro.informme
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.astro.informme.adapters.NewsAdapter
@@ -15,7 +18,7 @@ import com.astro.informme.api.Trends
 class NewsFragment : Fragment() {
 
     private val newsPieces : MutableList<News> = ArrayList(100)
-    private val newsAdapter = NewsAdapter(newsPieces)
+    private val newsAdapter = this.context?.let { NewsAdapter(newsPieces, it) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,8 +42,11 @@ class NewsFragment : Fragment() {
 
     fun updateList(news : News) {
         newsPieces.add(news)
-        newsAdapter.add(newsPieces)
-        newsAdapter.notifyDataSetChanged()
+        if (newsAdapter != null) {
+            newsAdapter.add(newsPieces)
+            newsAdapter.notifyDataSetChanged()
+        }
+
     }
 
     companion object {
