@@ -22,7 +22,7 @@ class Trends {
     fun getTrends(context: Context, country : String, fragment: NewsFragment) {
 
         val queue = Volley.newRequestQueue(context)
-        val baseTrendsUrl = "https://4d44-72-53-195-163.ngrok.io/trends/$country"
+        val baseTrendsUrl = BuildConfig.ngrok + "/trends/$country"
 
         val jsonArrayRequest = JsonArrayRequest(baseTrendsUrl, { response ->
 
@@ -44,57 +44,57 @@ class Trends {
      */
 
     private fun fetchNews(queue : RequestQueue, keyword : String, fragment : NewsFragment) {
-        val yesterday: ZonedDateTime = ZonedDateTime.now().with(ChronoField.NANO_OF_DAY, 0).minusDays(1)
-        val dateTimeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")
-        val dateISO = dateTimeFormatter.format(yesterday)
-
-        val url = "https://newsdata.io/api/1/archive?apikey=" + BuildConfig.key + "&q=" + keyword + "&from_date=" + dateISO
-
-        val jsonObjectRequest = object: JsonObjectRequest(
-            Method.GET,
-            url,
-            null,
-            Response.Listener {
-                val newsJsonArray = it.getJSONArray("results")
-
-                for(i in 0 until newsJsonArray.length()) {
-                    val newsJsonObject = newsJsonArray.getJSONObject(i)
-                    val news = News(
-                        newsJsonObject.getString("title"),
-                        newsJsonObject.getString("creator"),
-                        newsJsonObject.getString("description"),
-                        newsJsonObject.getString("link"),
-                        newsJsonObject.getString("image_url")
-                    )
-
-                    fragment.updateList(news)
-                }
-
-            },
-            Response.ErrorListener {
-
-            }
-
-        ) {
-            override fun getHeaders(): MutableMap<String, String> {
-                val headers = HashMap<String, String>()
-                headers["User-Agent"] = "Mozilla/5.0"
-                return headers
-            }
-        }
-
-        queue.add(jsonObjectRequest)
-
-//        val news = News(
-//            keyword,
-//            keyword,
-//            keyword,
-//            keyword,
-//            "https://thumbor.forbes.com/thumbor/fit-in/1200x0/" +
-//                    "filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F61d08d27170d27fa6d3ad616%2F0x0.jpg"
-//        )
+//        val yesterday: ZonedDateTime = ZonedDateTime.now().with(ChronoField.NANO_OF_DAY, 0).minusDays(1)
+//        val dateTimeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")
+//        val dateISO = dateTimeFormatter.format(yesterday)
 //
-//        fragment.updateList(news)
+//        var url = "https://newsapi.org/v2/everything?apiKey=" + BuildConfig.key + "&q=" + keyword + "&from=" + dateISO + "&sortBy=popularity"
+//
+//        val jsonObjectRequest = object: JsonObjectRequest(
+//            Method.GET,
+//            url,
+//            null,
+//            Response.Listener {
+//                val newsJsonArray = it.getJSONArray("articles")
+//
+//                for(i in 0 until newsJsonArray.length()) {
+//                    val newsJsonObject = newsJsonArray.getJSONObject(i)
+//                    val news = News(
+//                        newsJsonObject.getString("title"),
+//                        newsJsonObject.getJSONObject("source").getString("name"),
+//                        newsJsonObject.getString("description"),
+//                        newsJsonObject.getString("url"),
+//                        newsJsonObject.getString("urlToImage")
+//                    )
+//
+//                    fragment.onComplete(news)
+//                }
+//
+//            },
+//            Response.ErrorListener {
+//
+//            }
+//
+//        ) {
+//            override fun getHeaders(): MutableMap<String, String> {
+//                val headers = HashMap<String, String>()
+//                headers["User-Agent"] = "Mozilla/5.0"
+//                return headers
+//            }
+//        }
+//
+//        queue.add(jsonObjectRequest)
+
+        val news = News(
+            keyword,
+            "$keyword part 2",
+            "$keyword part 3",
+            "http://developer.android.com",
+            "https://thumbor.forbes.com/thumbor/fit-in/1200x0/" +
+                    "filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F61d08d27170d27fa6d3ad616%2F0x0.jpg"
+        )
+
+        fragment.onComplete(news)
     }
 
 }

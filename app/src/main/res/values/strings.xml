@@ -4,4 +4,12 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="refresh_news">Refresh news</string>
+    <string-array name="countries">
+        <item>Canada</item>
+        <item>Ireland</item>
+        <item>United Kingdom</item>
+        <item>Mexico</item>
+        <item>Brazil</item>
+        <item>United States</item>
+    </string-array>
 </resources>

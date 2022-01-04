@@ -3,11 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Projects/InformMe/app/src/main/res/drawable-anydpi/refresh.xml" value="0.22135416666666666" />
         <entry key="..\:/Projects/InformMe/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Projects/InformMe/app/src/main/res/layout/content_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Projects/InformMe/app/src/main/res/layout/fragment_header.xml" value="0.36666666666666664" />
         <entry key="..\:/Projects/InformMe/app/src/main/res/layout/fragment_news.xml" value="0.36666666666666664" />
         <entry key="..\:/Projects/InformMe/app/src/main/res/layout/fragment_news_list.xml" value="0.35260416666666666" />
-        <entry key="..\:/Projects/InformMe/app/src/main/res/layout/news.xml" value="0.36666666666666664" />
+        <entry key="..\:/Projects/InformMe/app/src/main/res/layout/news.xml" value="0.42919389978213507" />
+        <entry key="..\:/Projects/InformMe/app/src/main/res/layout/spinner_text.xml" value="0.20520833333333333" />
       </map>
     </option>
   </component>
