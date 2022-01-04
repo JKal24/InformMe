@@ -19,9 +19,9 @@ import android.content.Intent
 import androidx.core.content.ContextCompat
 
 
-class NewsAdapter(var news: MutableList<News>, val context: Context) : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
+class NewsAdapter(var news: MutableList<News>) : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
-    class NewsViewHolder(private val view : View): RecyclerView.ViewHolder(view) {
+    class NewsViewHolder(val view : View): RecyclerView.ViewHolder(view) {
         val newsImage : ImageView = view.findViewById(R.id.news_img)
         val newsName : TextView = view.findViewById(R.id.news_name)
         val newsTitle : TextView = view.findViewById(R.id.news_title)
@@ -55,7 +55,7 @@ class NewsAdapter(var news: MutableList<News>, val context: Context) : RecyclerV
         val newsLink = holder.newsLink
         newsLink.setOnClickListener {
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(newsPiece.url))
-            startActivity(context, browserIntent, null)
+            startActivity(holder.view.context, browserIntent, null)
         }
 
     }

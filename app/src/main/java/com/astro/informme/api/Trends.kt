@@ -22,7 +22,7 @@ class Trends {
     fun getTrends(context: Context, country : String, fragment: NewsFragment) {
 
         val queue = Volley.newRequestQueue(context)
-        val baseTrendsUrl = "https://35c6-72-53-195-163.ngrok.io/trends/$country"
+        val baseTrendsUrl = BuildConfig.ngrok + "/trends/$country"
 
         val jsonArrayRequest = JsonArrayRequest(baseTrendsUrl, { response ->
 
@@ -67,7 +67,7 @@ class Trends {
 //                        newsJsonObject.getString("urlToImage")
 //                    )
 //
-//                    fragment.updateList(news)
+//                    fragment.onComplete(news)
 //                }
 //
 //            },
@@ -87,14 +87,14 @@ class Trends {
 
         val news = News(
             keyword,
-            keyword + " part 2",
-            keyword + " part 3",
-            keyword + " part 4",
+            "$keyword part 2",
+            "$keyword part 3",
+            "http://developer.android.com",
             "https://thumbor.forbes.com/thumbor/fit-in/1200x0/" +
                     "filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F61d08d27170d27fa6d3ad616%2F0x0.jpg"
         )
 
-        fragment.updateList(news)
+        fragment.onComplete(news)
     }
 
 }

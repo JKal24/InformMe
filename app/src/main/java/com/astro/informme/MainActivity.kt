@@ -10,6 +10,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        setSupportActionBar(findViewById(R.id.main_app_bar))
+
         supportFragmentManager.commit {
             add(R.id.main_header, Header())
             add(R.id.main_content, NewsFragment())
