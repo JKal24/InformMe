@@ -2,20 +2,11 @@ package com.astro.informme.api
 
 import android.content.Context
 import com.android.volley.RequestQueue
-import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
-import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.astro.informme.BuildConfig
 import com.astro.informme.NewsFragment
-import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.HashMap
-import android.R.string.no
-import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
-import java.time.temporal.ChronoField
-
+import com.astro.informme.data.News
 
 class Trends {
 

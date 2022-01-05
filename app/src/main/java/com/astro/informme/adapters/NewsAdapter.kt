@@ -1,8 +1,6 @@
 package com.astro.informme.adapters
 
-import android.content.Context
 import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,12 +9,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.astro.informme.R
-import com.astro.informme.api.News
+import com.astro.informme.data.News
 import com.squareup.picasso.Picasso
 import androidx.core.content.ContextCompat.startActivity
 
 import android.content.Intent
-import androidx.core.content.ContextCompat
 
 
 class NewsAdapter(var news: MutableList<News>) : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
