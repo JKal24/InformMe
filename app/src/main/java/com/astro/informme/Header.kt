@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 
@@ -27,6 +29,17 @@ class Header : Fragment() {
         val view = inflater.inflate(R.layout.fragment_header, container, false)
         val spinner = view.findViewById<Spinner>(R.id.country_spinner)
 
+        spinner.onItemSelectedListener = object : OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                spinner.setSelection(p2)
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+
+            }
+
+        }
+
         ArrayAdapter.createFromResource(
             view.context,
             R.array.countries,
@@ -36,7 +49,7 @@ class Header : Fragment() {
             spinner.adapter = adapter
         }
 
-        return view;
+        return view
     }
 
     companion object {
