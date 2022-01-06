@@ -1,5 +1,6 @@
 package com.astro.informme
 
+import android.content.Context
 import android.os.Bundle
 import android.os.Parcelable
 import android.util.Log
@@ -11,6 +12,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.astro.informme.adapters.NewsAdapter
@@ -20,6 +22,9 @@ import com.astro.informme.data.NewsRepository
 import com.astro.informme.data.NewsRoomDatabase
 import com.astro.informme.data.NewsViewModel
 import com.astro.informme.data.NewsViewModelFactory
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class NewsFragment() : Fragment(), Callback<News> {
 
@@ -29,7 +34,7 @@ class NewsFragment() : Fragment(), Callback<News> {
     private lateinit var database : NewsRoomDatabase
     private lateinit var repository : NewsRepository
 
-    private lateinit var newsViewModel: NewsViewModel;
+    private lateinit var newsViewModel: NewsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,13 +57,21 @@ class NewsFragment() : Fragment(), Callback<News> {
 
         newsAdapter = NewsAdapter(newsPieces)
 
-        Trends().getTrends(view.context, "Canada", this)
-
         val newsView = view.findViewById<RecyclerView>(R.id.news)
 
         newsView.adapter = newsAdapter
         newsView.layoutManager = LinearLayoutManager(this.context)
 
+        lifecycleScope.launch {
+            newsViewModel.getNews().collect { value ->
+                if (value.size < 10) {
+                    getNews(view.context)
+                } else {
+                    onAllComplete(value)
+                }
+
+            }
+        }
 
         val spinner = view.findViewById<Spinner>(R.id.country_spinner)
 
@@ -90,6 +103,20 @@ class NewsFragment() : Fragment(), Callback<News> {
         @JvmStatic
         fun newInstance(param1: String) =
             NewsFragment()
+    }
+
+    fun getNews(context: Context) {
+        val newsFragment = this
+        lifecycleScope.launch {
+            newsViewModel.empty()
+            Trends().getTrends(context, "Canada", newsFragment)
+        }
+    }
+
+    override fun onAllComplete(Result: List<News>) {
+        newsPieces = Result as MutableList<News>
+        newsAdapter.add(newsPieces)
+        newsAdapter.notifyDataSetChanged()
     }
 
     override fun onComplete(Result: News) {

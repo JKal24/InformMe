@@ -10,28 +10,11 @@ class NewsViewModel(private val repository: NewsRepository) : ViewModel() {
     /**
      * Launching a new coroutine to insert the data in a non-blocking way
      */
-    fun insert(news: News) = viewModelScope.launch {
-        repository.insert(news)
-    }
+    fun insert(news: News) = repository.insert(news)
 
-//    fun count(): LiveData<Int> {
-//        var result = MutableLiveData<Int>()
-//        viewModelScope.launch {
-//            result.value = repository.count()
-//        }
-//        return result
-//    }
+    fun empty() = repository.empty()
 
-    fun empty() = viewModelScope.launch {
-        repository.empty()
-    }
-
-//    fun getNews(): LiveData<List<News>> {
-//        var result = MutableLiveData<News>()
-//        viewModelScope.launch {
-//            result.postValue(repository.getNews().asLiveData(Dispatchers.Default))
-//        }
-//    }
+    fun getNews() = repository.getNews()
 }
 
 class NewsViewModelFactory(private val repository: NewsRepository) : ViewModelProvider.Factory {

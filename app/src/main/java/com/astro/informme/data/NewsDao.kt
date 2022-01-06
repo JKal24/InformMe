@@ -13,10 +13,10 @@ interface NewsDao {
     fun getNews() : Flow<List<News>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(news: News)
+    fun insert(news: News)
 
     @Query("DELETE FROM news_table")
-    suspend fun deleteAll()
+    fun deleteAll()
 
     @Query("SELECT COUNT(id) FROM news_table")
     fun getNewsCount() : Int

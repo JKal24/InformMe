@@ -8,24 +8,9 @@ import kotlinx.coroutines.flow.Flow
 class NewsRepository(private val newsDao : NewsDao) {
     val allWords: Flow<List<News>> = newsDao.getNews()
 
-    @Suppress("RedundantSuspendModifier")
-    @WorkerThread
-    suspend fun insert(news: News) {
-        newsDao.insert(news)
-    }
+    fun insert(news: News) = newsDao.insert(news)
 
-    @WorkerThread
-    suspend fun count(): Int {
-        return newsDao.getNewsCount()
-    }
+     fun empty() = newsDao.deleteAll()
 
-    @WorkerThread
-    suspend fun empty() {
-        newsDao.getNewsCount()
-    }
-
-    @WorkerThread
-    suspend fun getNews(): Flow<List<News>> {
-        return newsDao.getNews()
-    }
+    fun getNews() = newsDao.getNews()
 }

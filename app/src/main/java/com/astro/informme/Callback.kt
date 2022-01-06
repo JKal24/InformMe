@@ -6,4 +6,5 @@ interface Callback<R> {
 
     fun onComplete(Result : R)
 
+    fun onAllComplete(Result: List<R>)
 }
