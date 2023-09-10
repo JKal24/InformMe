@@ -1,4 +1,3 @@
 # InformMe
 
-Incomplete Hackathon project, had some troubles with the News API.
-May change my approach and finish this project later.
+Hackathon Project as a Trending News App
